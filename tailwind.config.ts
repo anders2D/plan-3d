@@ -22,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(var(--primary-hover))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -47,6 +48,19 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Canvas colors
+        "canvas-bg": "hsl(var(--canvas-bg))",
+        "canvas-grid": "hsl(var(--canvas-grid))",
+        "canvas-border": "hsl(var(--canvas-border))",
+        // Room colors
+        "room-bedroom": "hsl(var(--room-bedroom))",
+        "room-bathroom": "hsl(var(--room-bathroom))",
+        "room-living": "hsl(var(--room-living))",
+        "room-kitchen": "hsl(var(--room-kitchen))",
+        // Architectural elements
+        "wall-color": "hsl(var(--wall-color))",
+        "door-color": "hsl(var(--door-color))",
+        "window-color": "hsl(var(--window-color))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

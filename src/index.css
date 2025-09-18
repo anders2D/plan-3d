@@ -2,39 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Architectural Design System - Professional home design app colors and effects */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors */
+    --background: 220 15% 97%;
+    --foreground: 220 25% 15%;
 
+    /* Card system */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Brand colors - Architectural blues and greys */
+    --primary: 215 85% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 215 85% 40%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 220 25% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 10% 95%;
+    --muted-foreground: 220 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 145 75% 45%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* UI elements */
+    --border: 220 15% 88%;
+    --input: 220 15% 95%;
+    --ring: 215 85% 45%;
+
+    /* Canvas and tools */
+    --canvas-bg: 0 0% 98%;
+    --canvas-grid: 220 15% 90%;
+    --canvas-border: 220 25% 80%;
+
+    /* Room colors */
+    --room-bedroom: 260 50% 85%;
+    --room-bathroom: 195 60% 85%;
+    --room-living: 25 70% 85%;
+    --room-kitchen: 145 50% 85%;
+
+    /* Architectural elements */
+    --wall-color: 220 15% 75%;
+    --door-color: 25 70% 65%;
+    --window-color: 195 80% 75%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(215 85% 55%));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(145 75% 55%));
+    --gradient-canvas: linear-gradient(180deg, hsl(var(--canvas-bg)), hsl(220 10% 96%));
 
     --radius: 0.5rem;
 
@@ -101,5 +125,45 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Canvas styles */
+  .canvas-container {
+    @apply bg-gradient-to-b from-canvas-bg to-muted;
+  }
+
+  .room-element {
+    @apply transition-all duration-200 hover:shadow-lg cursor-pointer;
+  }
+
+  .tool-button {
+    @apply transition-all duration-200 hover:scale-105 hover:shadow-md;
+  }
+}
+
+@layer components {
+  /* Architectural room styles */
+  .room-bedroom {
+    @apply bg-room-bedroom/30 border-room-bedroom border-2;
+  }
+  
+  .room-bathroom {
+    @apply bg-room-bathroom/30 border-room-bathroom border-2;
+  }
+  
+  .room-living {
+    @apply bg-room-living/30 border-room-living border-2;
+  }
+  
+  .room-kitchen {
+    @apply bg-room-kitchen/30 border-room-kitchen border-2;
+  }
+
+  /* Canvas grid pattern */
+  .canvas-grid {
+    background-image: 
+      linear-gradient(hsl(var(--canvas-grid)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--canvas-grid)) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
 }
