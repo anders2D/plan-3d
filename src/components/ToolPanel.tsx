@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { MousePointer, Home, Bath, Sofa, ChefHat, Square, DoorOpen, RectangleHorizontal } from 'lucide-react';
+import { MousePointer, Home, Bath, Sofa, ChefHat, Square, DoorOpen, RectangleHorizontal, Shirt, Car, Trees, WashingMachine, ArrowUp, Building, Briefcase, UtensilsCrossed, Archive } from 'lucide-react';
 import { ToolType } from '@/types/floorplan';
 
 interface ToolPanelProps {
@@ -16,7 +16,10 @@ export const ToolPanel = ({ activeTool, onToolChange }: ToolPanelProps) => {
       name: 'Seleccionar',
       icon: MousePointer,
       description: 'Seleccionar y mover elementos'
-    },
+    }
+  ];
+
+  const roomTools = [
     {
       id: 'bedroom' as ToolType,
       name: 'Alcoba',
@@ -40,6 +43,63 @@ export const ToolPanel = ({ activeTool, onToolChange }: ToolPanelProps) => {
       name: 'Cocina',
       icon: ChefHat,
       description: 'Agregar cocina'
+    },
+    {
+      id: 'dining' as ToolType,
+      name: 'Comedor',
+      icon: UtensilsCrossed,
+      description: 'Agregar comedor'
+    },
+    {
+      id: 'office' as ToolType,
+      name: 'Oficina',
+      icon: Briefcase,
+      description: 'Agregar oficina'
+    }
+  ];
+
+  const utilityTools = [
+    {
+      id: 'closet' as ToolType,
+      name: 'Closet',
+      icon: Shirt,
+      description: 'Agregar closet'
+    },
+    {
+      id: 'laundry' as ToolType,
+      name: 'Lavandería',
+      icon: WashingMachine,
+      description: 'Agregar zona de lavado'
+    },
+    {
+      id: 'storage' as ToolType,
+      name: 'Depósito',
+      icon: Archive,
+      description: 'Agregar depósito'
+    },
+    {
+      id: 'garage' as ToolType,
+      name: 'Garaje',
+      icon: Car,
+      description: 'Agregar garaje'
+    },
+    {
+      id: 'balcony' as ToolType,
+      name: 'Balcón',
+      icon: Building,
+      description: 'Agregar balcón'
+    },
+    {
+      id: 'stairs' as ToolType,
+      name: 'Escaleras',
+      icon: ArrowUp,
+      description: 'Agregar escaleras'
+    },
+    {
+      id: 'garden' as ToolType,
+      name: 'Jardín',
+      icon: Trees,
+      description: 'Agregar zona verde'
     }
   ];
 
@@ -65,31 +125,28 @@ export const ToolPanel = ({ activeTool, onToolChange }: ToolPanelProps) => {
   ];
 
   return (
-    <div className="w-80 p-6 bg-muted/30 border-r border-border">
+    <div className="w-80 p-4 bg-muted/30 border-r border-border overflow-y-auto">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-3">
           <CardTitle className="text-lg font-semibold">Herramientas</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <h4 className="text-sm font-medium mb-3 text-muted-foreground">HABITACIONES</h4>
-            <div className="grid grid-cols-2 gap-2">
-              {tools.map((tool) => {
-                const Icon = tool.icon;
-                return (
-                  <Button
-                    key={tool.id}
-                    variant={activeTool === tool.id ? "default" : "outline"}
-                    size="sm"
-                    className="h-auto p-3 flex flex-col items-center gap-2 tool-button"
-                    onClick={() => onToolChange(tool.id)}
-                  >
-                    <Icon className="h-5 w-5" />
-                    <span className="text-xs font-medium">{tool.name}</span>
-                  </Button>
-                );
-              })}
-            </div>
+        <CardContent className="space-y-3 overflow-y-auto max-h-[calc(100vh-120px)]">
+          <div className="grid grid-cols-2 gap-1">
+            {tools.concat(roomTools, utilityTools).map((tool) => {
+              const Icon = tool.icon;
+              return (
+                <Button
+                  key={tool.id}
+                  variant={activeTool === tool.id ? "default" : "outline"}
+                  size="sm"
+                  className="h-auto p-2 flex flex-col items-center gap-1"
+                  onClick={() => onToolChange(tool.id)}
+                >
+                  <Icon className="h-3 w-3" />
+                  <span className="text-xs">{tool.name}</span>
+                </Button>
+              );
+            })}
           </div>
 
           <Separator />
@@ -104,11 +161,11 @@ export const ToolPanel = ({ activeTool, onToolChange }: ToolPanelProps) => {
                     key={tool.id}
                     variant={activeTool === tool.id ? "default" : "outline"}
                     size="sm"
-                    className="h-auto p-3 flex flex-col items-center gap-2 tool-button opacity-50"
+                    className="h-auto p-2 flex flex-col items-center gap-1 tool-button opacity-50"
                     onClick={() => onToolChange(tool.id)}
                     disabled
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-4 w-4" />
                     <span className="text-xs font-medium">{tool.name}</span>
                   </Button>
                 );

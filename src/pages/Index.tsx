@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FloorPlanCanvas } from '@/components/FloorPlanCanvas';
+import { FloorPlan3D } from '@/components/FloorPlan3D';
 import { ToolPanel } from '@/components/ToolPanel';
 import { PropertiesPanel } from '@/components/PropertiesPanel';
 import { Button } from '@/components/ui/button';
@@ -15,6 +16,7 @@ const Index = () => {
     width: 20,
     height: 15
   });
+  const [show3D, setShow3D] = useState(false);
 
   const handleRoomAdd = (room: Room) => {
     setRooms(prev => [...prev, room]);
@@ -111,7 +113,7 @@ const Index = () => {
               <RotateCcw className="h-4 w-4 mr-2" />
               Limpiar
             </Button>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={() => setShow3D(true)}>
               <Eye className="h-4 w-4 mr-2" />
               Vista 3D
             </Button>
@@ -154,6 +156,15 @@ const Index = () => {
           onTerrainUpdate={handleTerrainUpdate}
         />
       </div>
+
+      {/* 3D View Modal */}
+      {show3D && (
+        <FloorPlan3D
+          rooms={rooms}
+          terrainDimensions={terrainDimensions}
+          onClose={() => setShow3D(false)}
+        />
+      )}
     </div>
   );
 };
