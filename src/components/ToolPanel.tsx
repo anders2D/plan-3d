@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { MousePointer, Home, Bath, Sofa, ChefHat, Square, DoorOpen, RectangleHorizontal, Shirt, Car, Trees, WashingMachine, ArrowUp, Building, Briefcase, UtensilsCrossed, Archive } from 'lucide-react';
+import { MousePointer, Home, Bath, Sofa, ChefHat, Square, DoorOpen, RectangleHorizontal, Shirt, Car, Trees, WashingMachine, ArrowUp, Building, Briefcase, UtensilsCrossed, Archive, Minus } from 'lucide-react';
 import { ToolType } from '@/types/floorplan';
 
 interface ToolPanelProps {
@@ -100,6 +100,12 @@ export const ToolPanel = ({ activeTool, onToolChange }: ToolPanelProps) => {
       name: 'Jardín',
       icon: Trees,
       description: 'Agregar zona verde'
+    },
+    {
+      id: 'hallway' as ToolType,
+      name: 'Pasillo',
+      icon: Minus,
+      description: 'Agregar pasillo de circulación'
     }
   ];
 

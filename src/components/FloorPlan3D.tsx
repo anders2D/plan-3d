@@ -263,7 +263,7 @@ export const FloorPlan3D = ({ rooms, terrainDimensions, onClose }: FloorPlan3DPr
 
       // Walls
       const wallHeight = roomHeights[room.id] || 2.5;
-      const wallThickness = 0.1;
+      const wallThickness = 0.15;
       const wallMaterial = isRealistic 
         ? new THREE.MeshPhongMaterial({ 
             map: brickTexture,
@@ -449,13 +449,13 @@ export const FloorPlan3D = ({ rooms, terrainDimensions, onClose }: FloorPlan3DPr
                             });
                             
                             if (window.wall === 'front' || window.wall === 'back') {
-                              windowGeometry = new THREE.BoxGeometry(window.width, window.height, 0.1);
+                              windowGeometry = new THREE.BoxGeometry(window.width, window.height, 0.15);
                               windowX = worldX + window.position * worldWidth;
                               windowY = window.bottomHeight + window.height / 2;
-                              windowZ = window.wall === 'front' ? worldZ - 0.05 : worldZ + worldHeight + 0.05;
+                              windowZ = window.wall === 'front' ? worldZ - 0.075 : worldZ + worldHeight + 0.075;
                             } else {
-                              windowGeometry = new THREE.BoxGeometry(0.1, window.height, window.width);
-                              windowX = window.wall === 'left' ? worldX - 0.05 : worldX + worldWidth + 0.05;
+                              windowGeometry = new THREE.BoxGeometry(0.15, window.height, window.width);
+                              windowX = window.wall === 'left' ? worldX - 0.075 : worldX + worldWidth + 0.075;
                               windowY = window.bottomHeight + window.height / 2;
                               windowZ = worldZ + window.position * worldHeight;
                             }
@@ -567,16 +567,18 @@ export const FloorPlan3D = ({ rooms, terrainDimensions, onClose }: FloorPlan3DPr
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      renderer.domElement.removeEventListener('click', onMouseClick);
-      renderer.domElement.removeEventListener('mousemove', onMouseMove);
-      renderer.domElement.removeEventListener('mouseup', onMouseUp);
+      if (renderer.domElement) {
+        renderer.domElement.removeEventListener('click', onMouseClick);
+        renderer.domElement.removeEventListener('mousemove', onMouseMove);
+        renderer.domElement.removeEventListener('mouseup', onMouseUp);
+      }
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
       if (controlsRef.current) {
         controlsRef.current.dispose();
       }
-      if (mountRef.current && renderer.domElement) {
+      if (mountRef.current && renderer.domElement && mountRef.current.contains(renderer.domElement)) {
         mountRef.current.removeChild(renderer.domElement);
       }
       renderer.dispose();
@@ -612,13 +614,13 @@ export const FloorPlan3D = ({ rooms, terrainDimensions, onClose }: FloorPlan3DPr
         const doorMaterial = new THREE.MeshPhongMaterial({ color: 0x8B4513 });
         
         if (door.wall === 'front' || door.wall === 'back') {
-          doorGeometry = new THREE.BoxGeometry(door.width, door.height, 0.05);
+          doorGeometry = new THREE.BoxGeometry(door.width, door.height, 0.075);
           doorX = worldX + door.position * worldWidth;
           doorY = door.height / 2;
-          doorZ = door.wall === 'front' ? worldZ - 0.025 : worldZ + worldHeight + 0.025;
+          doorZ = door.wall === 'front' ? worldZ - 0.0375 : worldZ + worldHeight + 0.0375;
         } else {
-          doorGeometry = new THREE.BoxGeometry(0.05, door.height, door.width);
-          doorX = door.wall === 'left' ? worldX - 0.025 : worldX + worldWidth + 0.025;
+          doorGeometry = new THREE.BoxGeometry(0.075, door.height, door.width);
+          doorX = door.wall === 'left' ? worldX - 0.0375 : worldX + worldWidth + 0.0375;
           doorY = door.height / 2;
           doorZ = worldZ + door.position * worldHeight;
         }
@@ -642,13 +644,13 @@ export const FloorPlan3D = ({ rooms, terrainDimensions, onClose }: FloorPlan3DPr
         });
         
         if (window.wall === 'front' || window.wall === 'back') {
-          windowGeometry = new THREE.BoxGeometry(window.width, window.height, 0.1);
+          windowGeometry = new THREE.BoxGeometry(window.width, window.height, 0.15);
           windowX = worldX + window.position * worldWidth;
           windowY = window.bottomHeight + window.height / 2;
-          windowZ = window.wall === 'front' ? worldZ - 0.05 : worldZ + worldHeight + 0.05;
+          windowZ = window.wall === 'front' ? worldZ - 0.075 : worldZ + worldHeight + 0.075;
         } else {
-          windowGeometry = new THREE.BoxGeometry(0.1, window.height, window.width);
-          windowX = window.wall === 'left' ? worldX - 0.05 : worldX + worldWidth + 0.05;
+          windowGeometry = new THREE.BoxGeometry(0.15, window.height, window.width);
+          windowX = window.wall === 'left' ? worldX - 0.075 : worldX + worldWidth + 0.075;
           windowY = window.bottomHeight + window.height / 2;
           windowZ = worldZ + window.position * worldHeight;
         }
@@ -731,7 +733,7 @@ export const FloorPlan3D = ({ rooms, terrainDimensions, onClose }: FloorPlan3DPr
           const { width, height, depth } = geometry.parameters;
           
           // Identify walls by their thin depth
-          if (depth === 0.1 || width === 0.1) {
+          if (depth === 0.15 || width === 0.15) {
             if (isRealistic) {
               const brickTexture = createBrickTexture();
               const newMaterial = new THREE.MeshPhongMaterial({

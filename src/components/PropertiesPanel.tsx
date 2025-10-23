@@ -39,10 +39,19 @@ export const PropertiesPanel = ({
     const updatedRoom = { ...localRoom };
     if (field.includes('.')) {
       const [parent, child] = field.split('.');
-      (updatedRoom as any)[parent] = {
-        ...(updatedRoom as any)[parent],
-        [child]: parseFloat(value) || 0
-      };
+      if (parent === 'dimensions') {
+        // Convert meters to pixels using scale 1:5 (20px per meter)
+        const pixelValue = (parseFloat(value) || 0) * 20;
+        (updatedRoom as any)[parent] = {
+          ...(updatedRoom as any)[parent],
+          [child]: pixelValue
+        };
+      } else {
+        (updatedRoom as any)[parent] = {
+          ...(updatedRoom as any)[parent],
+          [child]: parseFloat(value) || 0
+        };
+      }
     } else {
       (updatedRoom as any)[field] = value;
     }
@@ -55,7 +64,7 @@ export const PropertiesPanel = ({
     const numValue = parseFloat(value) || 1;
     const newDimensions = {
       ...localTerrain,
-      [field]: Math.max(1, numValue)
+      [field]: Math.max(0.5, numValue)
     };
     setLocalTerrain(newDimensions);
   };
@@ -87,7 +96,8 @@ export const PropertiesPanel = ({
               <Input
                 id="terrain-width"
                 type="number"
-                min="1"
+                min="0.5"
+                step="0.5"
                 value={localTerrain.width}
                 onChange={(e) => handleTerrainChange('width', e.target.value)}
                 className="mt-1"
@@ -100,7 +110,8 @@ export const PropertiesPanel = ({
               <Input
                 id="terrain-height"
                 type="number"
-                min="1"
+                min="0.5"
+                step="0.5"
                 value={localTerrain.height}
                 onChange={(e) => handleTerrainChange('height', e.target.value)}
                 className="mt-1"
@@ -171,7 +182,7 @@ export const PropertiesPanel = ({
                     type="number"
                     min="0.1"
                     step="0.1"
-                    value={localRoom?.dimensions.width || 0}
+                    value={((localRoom?.dimensions.width || 0) / 20).toFixed(1)}
                     onChange={(e) => handleRoomChange('dimensions.width', e.target.value)}
                     className="mt-1"
                   />
@@ -185,7 +196,7 @@ export const PropertiesPanel = ({
                     type="number"
                     min="0.1"
                     step="0.1"
-                    value={localRoom?.dimensions.height || 0}
+                    value={((localRoom?.dimensions.height || 0) / 20).toFixed(1)}
                     onChange={(e) => handleRoomChange('dimensions.height', e.target.value)}
                     className="mt-1"
                   />
@@ -226,7 +237,7 @@ export const PropertiesPanel = ({
             </div>
 
             <div className="pt-2 text-xs text-muted-foreground">
-              Área: {((localRoom?.dimensions.width || 0) * (localRoom?.dimensions.height || 0)).toFixed(2)} m²
+              Área: {(((localRoom?.dimensions.width || 0) / 20) * ((localRoom?.dimensions.height || 0) / 20)).toFixed(2)} m²
             </div>
           </CardContent>
         </Card>

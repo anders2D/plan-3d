@@ -10,7 +10,7 @@ export interface Dimensions {
 
 export interface Room {
   id: string;
-  type: 'bedroom' | 'bathroom' | 'living' | 'kitchen' | 'closet' | 'garage' | 'garden' | 'laundry' | 'stairs' | 'balcony' | 'office' | 'dining' | 'storage';
+  type: 'bedroom' | 'bathroom' | 'living' | 'kitchen' | 'closet' | 'garage' | 'garden' | 'laundry' | 'stairs' | 'balcony' | 'office' | 'dining' | 'storage' | 'hallway';
   name: string;
   position: Point;
   dimensions: Dimensions;
@@ -51,4 +51,4 @@ export interface Window {
   wallId?: string;
 }
 
-export type ToolType = 'select' | 'bedroom' | 'bathroom' | 'living' | 'kitchen' | 'closet' | 'garage' | 'garden' | 'laundry' | 'stairs' | 'balcony' | 'office' | 'dining' | 'storage' | 'wall' | 'door' | 'window';
+export type ToolType = 'select' | 'bedroom' | 'bathroom' | 'living' | 'kitchen' | 'closet' | 'garage' | 'garden' | 'laundry' | 'stairs' | 'balcony' | 'office' | 'dining' | 'storage' | 'hallway' | 'wall' | 'door' | 'window';
